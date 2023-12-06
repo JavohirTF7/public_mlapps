@@ -6,8 +6,8 @@ model = pickle.load(open('xgboost_heartpredictor.pkl', 'rb'))
 
 
 with st.sidebar:
-    selected = st.selectbox('Select Prediction Type', 
-                            ['Heart Disease Prediction', 'Diabetes Prediction'],
+    selected = st.selectbox('Select Disease', 
+                            ['Heart Disease Prediction'], #['Heart Disease Prediction', 'Diabetes Prediction'],
                             index=0)
 
 

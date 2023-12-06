@@ -1,21 +1,21 @@
 import streamlit as st
 import pickle
 
-# Load the pre-trained model
+
 model = pickle.load(open('xgboost_heartpredictor.pkl', 'rb'))
 
-# Sidebar Navigation
+
 with st.sidebar:
     selected = st.selectbox('Select Prediction Type', 
                             ['Heart Disease Prediction', 'Diabetes Prediction'],
                             index=0)
 
-# Heart Disease Prediction Page
+
 if selected == 'Heart Disease Prediction':
     # Page Title
     st.title('Heart Condition Prediction using ML')
 
-    # Define encoding dictionaries
+    
     race_options = {"American Indian/Alaskan Native": 0, "White": 5, "Black": 2, "Asian": 1, "Hispanic": 3, "Other": 4}
     sex_options = {"Male": 1, "Female": 0}
     age_categories = {"18-24": 0, "25-29": 1, "30-34": 2, "35-39": 3, "40-44": 4, "45-49": 5, "50-54": 6, "55-59": 7,
@@ -33,10 +33,10 @@ if selected == 'Heart Disease Prediction':
     kidney_disease_categories = {"No": 0, "Yes": 1}
     skin_cancer_categories = {"No": 0, "Yes": 1}
 
-    # Create Streamlit components for input
+    
     col1, col2 = st.columns(2)
 
-    # Left side - Input components
+    
     with col1:
         st.markdown("### Provide All Inputs")
         selected_race = st.selectbox("1. Race:", list(race_options.keys()))
@@ -57,11 +57,10 @@ if selected == 'Heart Disease Prediction':
         has_kidney_disease = st.selectbox("16. Do you have kidney disease?", ["No", "Yes"])
         has_skin_cancer = st.selectbox("17. Do you have skin cancer?", ["No", "Yes"])
 
-    # Right side - Descriptions
+    
     
     with col2:
-        # Placeholder descriptions (replace with accurate information)
-        # Display image using st.image with specific styling parameters
+        
         st.image("drxgboost.jpg", caption="Provide the inputs on the left. I'll help you diagnose your heart health! - Dr. XGBoost", width=340)
         st.markdown("### Descriptions")
         st.markdown(
@@ -89,7 +88,6 @@ if selected == 'Heart Disease Prediction':
         )
 
 
-    # Map selected options to their corresponding values
     BMICategory = bmi_categories[selected_bmi_category]
     Smoking = smoking_categories[smoked_cigarettes]
     AlcoholDrinking = alcohol_categories[drinks_of_alcohol]
@@ -108,32 +106,28 @@ if selected == 'Heart Disease Prediction':
     KidneyDisease = kidney_disease_categories[has_kidney_disease]
     SkinCancer = skin_cancer_categories[has_skin_cancer]
 
-    # Integrate the prediction logic here
     input_data = [[BMICategory, Smoking, AlcoholDrinking, Stroke, PhysicalHealth, MentalHealth,
                    DiffWalking, Sex, AgeCategory, Race, Diabetic, PhysicalActivity, GenHealth,
                    SleepTime, Asthma, KidneyDisease, SkinCancer]]
 
-    # Add a Predict button
     if st.button('Predict'):
         prediction_proba = model.predict_proba(input_data)[:, 1]
         rounded_prediction = round(prediction_proba[0] * 100, 2)
 
-        # Determine prediction result and color style
         color_style = ""
 
         if rounded_prediction < 25:
             prediction_sentence = f"<b>The probability that you will have heart disease is {rounded_prediction}%. You are good and in the green zone.</b>"
-            color_style = "color: #32CD32; font-size: 30px;"  # Increased font size
+            color_style = "color: #32CD32; font-size: 30px;"  
         elif 25 <= rounded_prediction < 50:
             prediction_sentence = f"<b>The probability that you will have heart disease is {rounded_prediction}%. You are in the yellow zone.</b>"
-            color_style = "color: #FFD700; font-size: 30px;"  # Increased font size
+            color_style = "color: #FFD700; font-size: 30px;"  
         elif 50 <= rounded_prediction < 75:
             prediction_sentence = f"<b>The probability that you will have heart disease is {rounded_prediction}%. You are in the orange zone and you may need to consult a doctor.</b>"
-            color_style = "color: #FF4500; font-size: 30px;"  # Increased font size
+            color_style = "color: #FF4500; font-size: 30px;"  
         else:
             prediction_sentence = f"<b>The probability that you will have heart disease is {rounded_prediction}%. You are in the red zone and it is advisable to seek advice from a human doctor.</b>"
-            color_style = "color: #DC143C; font-size: 30px;"  # Increased font size
+            color_style = "color: #DC143C; font-size: 30px;"  
 
-        # Display the prediction result with color styling
         st.markdown(f"<p style='{color_style}'>{prediction_sentence}</p>", unsafe_allow_html=True)
 

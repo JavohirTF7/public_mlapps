@@ -13,7 +13,7 @@ with st.sidebar:
 
 if selected == 'Heart Disease Prediction':
     # Page Title
-    st.title('Heart Condition Prediction using ML')
+    st.title('Yurak xastaliklarini aniqlash')
 
     
     race_options = {"American Indian/Alaskan Native": 0, "White": 5, "Black": 2, "Asian": 1, "Hispanic": 3, "Other": 4}
@@ -38,52 +38,46 @@ if selected == 'Heart Disease Prediction':
 
     
     with col1:
-        st.markdown("### Provide All Inputs")
-        selected_race = st.selectbox("1. Race:", list(race_options.keys()))
-        selected_sex = st.selectbox("2. Sex:", list(sex_options.keys()))
-        selected_age_category = st.selectbox("3. What's your age category:", list(age_categories.keys()))
+        st.markdown("### Siz kiritishingiz kerak bo'lgan malumotlar")
+        selected_race = st.selectbox("1. Irq:", list(race_options.keys()))
+        selected_sex = st.selectbox("2. Jins:", list(sex_options.keys()))
+        selected_age_category = st.selectbox("3. qaysi yosh kategoriyasdasiz:", list(age_categories.keys()))
         selected_bmi_category = st.selectbox("4. BMI Category:", list(bmi_categories.keys()))
-        selected_general_health = st.selectbox("5. Describe your general health:", list(general_health_options.keys()))
-        hours_of_sleep = st.number_input("6. How many hours on average do you sleep?", min_value=0, max_value=24, value=0, step=1)
-        played_sports = st.selectbox("7. Have you played any sports in the past month?", ["No", "Yes"])
-        smoked_cigarettes = st.selectbox("8. Have you smoked at least 100 cigarettes in your entire life?", ["No", "Yes"])
-        drinks_of_alcohol = st.selectbox("9. Do you have more than 14 drinks of alcohol (men) or more than 7 (women) in a week?", ["No", "Yes"])
-        days_physical_health_not_good = st.number_input("10. For how many days during the past 30 days was your physical health not good?", min_value=0, max_value=30, value=0, step=1)
-        days_mental_health_not_good = st.number_input("11. For how many days during the past 30 days was your mental health not good?", min_value=0, max_value=30, value=0, step=1)
-        difficulty_walking_or_climbing_stairs = st.selectbox("12. Do you have serious difficulty walking or climbing stairs?", ["No", "Yes"])
-        ever_had_diabetes = st.selectbox("13. Have you ever had diabetes?", ["Yes (during pregnancy)", "No, borderline diabetes", "No", "Yes"])
-        had_stroke = st.selectbox("14. Have you had a stroke in the past?", ["No", "Yes"])
-        has_asthma = st.selectbox("15. Do you have asthma?", ["No", "Yes"])
-        has_kidney_disease = st.selectbox("16. Do you have kidney disease?", ["No", "Yes"])
-        has_skin_cancer = st.selectbox("17. Do you have skin cancer?", ["No", "Yes"])
+        selected_general_health = st.selectbox("5. Umumiy sog'lig'ingiz haqida malumot:", list(general_health_options.keys()))
+        hours_of_sleep = st.number_input("6. Kuniga o'rtacha qancha uxlaysiz?", min_value=0, max_value=24, value=0, step=1)
+        played_sports = st.selectbox("7. O'tgan oyda biron bir sport bilan shug'ullanganmisiz?", ["No", "Yes"])
+        smoked_cigarettes = st.selectbox("8. Siz butun umringiz davomida kamida 100 ta sigaret chekganmisiz?", ["No", "Yes"])
+        drinks_of_alcohol = st.selectbox("9. Sizda bir haftada 14 dan ortiq spirtli ichimliklar (erkaklar) yoki 7 dan ortiq (ayollar) bormi??", ["No", "Yes"])
+        days_physical_health_not_good = st.number_input("10. So'nggi 30 kun ichida necha kun davomida jismoniy sog'ligingiz yaxshi emas edi?", min_value=0, max_value=30, value=0, step=1)
+        days_mental_health_not_good = st.number_input("11. Oxirgi 30 kun ichida necha kun davomida ruhiy salomatligingiz yaxshi emas edi?", min_value=0, max_value=30, value=0, step=1)
+        difficulty_walking_or_climbing_stairs = st.selectbox("12. Sizda yurish yoki zinapoyaga chiqishda jiddiy qiyinchiliklar bormi?", ["No", "Yes"])
+        ever_had_diabetes = st.selectbox("13. Qandli diabet bilan kasallanganmisiz?", ["Yes (during pregnancy)", "No, borderline diabetes", "No", "Yes"])
+        had_stroke = st.selectbox("14. Oldin insult bo'lganmisiz?", ["No", "Yes"])
+        has_asthma = st.selectbox("15. Sizda astma bormi?", ["No", "Yes"])
+        has_kidney_disease = st.selectbox("16. Sizda buyrak kasalligi bormi?", ["No", "Yes"])
+        has_skin_cancer = st.selectbox("17. Sizda teri saratoni bormi?", ["No", "Yes"])
 
     
     
     with col2:
         
-        st.image("drxgboost.jpg", caption="Provide the inputs on the left. I'll help you diagnose your heart health! - Dr. XGBoost", width=340)
-        st.markdown("### Descriptions")
+        st.image("drxgboost.jpg", caption="Chapdagi malumotlarni kiriting. Men sizga yurak sog'lig'ingizni tashxislashda yordam beraman!", width=340)
+        st.markdown("### Yo'riqnoma")
         st.markdown(
             """
-            Are you wondering about the condition of your heart? I'll help you diagnose your heart health. I'm Dr XGBoost!
+            Yuragingizning holati haqida qiziqyapsizmi? Men sizga yurak sog'lig'ingizni tashxislashda yordam beraman.
 
-            Did you know that machine learning models can help you predict heart disease pretty accurately?
-            With this app, you can estimate your chance (probability) of heart having disease in seconds!
-            The app is a result of training a gradient boosting model (XGBoost) using a dataset of over 300,000 United States residents from 2020.
-            The overall prediction accuracy of the model is pretty high at 91.5%.
+            Mashinani o'rganish modellari yurak xastaliklarini aniq bashorat qilishda yordam berishi mumkinligini bilasizmi? Ushbu ilova yordamida siz bir necha soniya ichida yurak xastaligi ehtimolini (ehtimolini) taxmin qilishingiz mumkin!
 
-            To predict your heart disease status, simply follow the steps below:
-            - **Enter the parameters that best describe you in an honest manner,**
-            - **Press the "Predict" button at the end and wait for your result.**
-
-            Keep in mind that this result is not equivalent to a medical diagnosis! This model has less than perfect accuracy, so if you have any problems, consult a human doctor.
+            Yurak kasalligining holatini taxmin qilish uchun quyidagi amallarni bajaring::
+            - **Sizni eng yaxshi tavsiflovchi parametrlarni to'g'ri kiriting**
+            - **Oxirida "Predict" tugmasini bosing va natijangizni kuting.**
             
-            **Description of the Results**  
-            A percentage probability of your heart having a disease will be returned. I took the freedom to class the probability into 4 groups, 0-25% as the "green zone", 25-50% as the "yellow zone", 50-75% as the "orange zone" and 75-100% as the "red zone".
-            This may not mean anything, but it's just to get some picture of the result.
+            **Natijalarni tavsifi**  
+            Yuragingizning kasal bo'lish ehtimoli foizga beriladi. Men ehtimollikni 4 guruhga bo'lish erkinligini oldim, 0-25% "yashil zona", 25-50% "sariq zona", 50-75% "to'q sariq zona" va 75-100%. "qizil zona".
+              Bu hech narsani anglatmasligi mumkin, lekin bu shunchaki natijaning rasmini olish uchun.
 
-            **Author:** Jesse Gabriel, Port Moresby  
-            [Email](mailto:optimusservices22@gmail.com). Connect with me at [LinkedIn](https://www.linkedin.com/in/jesse-gabriel-aa561157/)
+            **Author:** Ermatova Bahora, Toshkent, Yuksalish maktabi
             """
         )
 
